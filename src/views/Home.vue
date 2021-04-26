@@ -1,18 +1,30 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <p>{{location.data.aqi}}</p>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import LocationService from '@/services/LocationService.js'
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    
+  },
+
+  data(){
+    return {
+      location: []
+    }
+  },
+
+  created() {
+    LocationService.getLocation()
+      .then(response => {
+        this.location = response.data
+      })
   }
 }
 </script>
